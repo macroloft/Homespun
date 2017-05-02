@@ -1,0 +1,29 @@
+{
+    "name": "macroloft/Homespun",
+    "description": "Simple PHP templating for HTML snippets and components",
+    "type": "library",
+    "keywords": [
+        "html",
+        "component",
+        "template",
+        "snippets"
+    ],
+    "homepage": "https://github.com/macroloft/Homespun",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Leonard Hertel",
+            "email": "leonard.hertel@gmail.com",
+            "homepage": "http://leonardhertel.de"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/macroloft/Homespun/issues",
+        "source": "https://github.com/macroloft/Homespun"
+    },
+    "autoload": {
+        "psr-4": {
+            "Homespun\\": "src/"
+        }
+    }
+}
