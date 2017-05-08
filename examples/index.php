@@ -33,3 +33,7 @@ $foo = Button([
 <h3>
 <?= var_dump(Data()) ?>
 </h3>
+
+<hr>
+
+<?= Button()->class('foo', 'bar')->id('baz') ?>
