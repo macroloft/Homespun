@@ -24,6 +24,26 @@ class Homespun
         return $this->_render();
     }
 
+    function __call ( $name, $args )
+    {
+        if ( !empty($args) )
+        {
+            if ( isset($this->_data[$name]) )
+                array_push($this->_data[$name], ...$args);
+            else
+                $this->_data[$name] = $args;
+            return $this;
+        }
+        else if ( array_key_exists($name, $this->_data) )
+        {
+            return $this->_data[$name];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     function raw ()
     {
         $this->_raw = true;
@@ -58,11 +78,25 @@ class Homespun
         $this->_path = $this->_basePath . $this->_targetPath . '.php';
     }
 
+    protected function _attr ( $names ) {
+        $output = [];
+
+        foreach ( $names as $name ) {
+            if ( array_key_exists($name, $this->_data) )
+                $output[] = $name . '="' . implode(' ', $this->_data[$name]) . '"';
+        }
+
+        return implode(' ', $output);
+    }
+
     protected function _render ()
     {
         $this->_preparePath();
 
         $_data = $this->_data;
+        $_attr = function (...$names) {
+            return $this->_attr($names);
+        };
 
         foreach ( $_data as $key => $value )
             ${$key} = $value;
