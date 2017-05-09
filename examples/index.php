@@ -1,39 +1,21 @@
 <?php
 
-require '../src/Homespun.php';
+require 'components.php';
 
-function Button ( $payload = [] )
-{
-    $h = new \Homespun\Homespun('button', $payload);
-    $h->setBasePath('./components/');
-    return $h;
-}
-
-function Data ( $payload = [] )
-{
-    $h = new \Homespun\Homespun('data', $payload);
-    $h->setBasePath('./components/');
-    return $h->raw();
-}
-
-$foo = Button([
-    'label' => 'Bar'
-]);
+$foo = Button('Bar');
 
 ?>
 
 <pre style="background-color: #eee; padding: 20px;"><?= var_dump($foo) ?></pre>
 
-<?= Button([
-    'label' => 'Bar'
-]) ?>
-
 <?= $foo ?>
 
-<h3>
-<?= var_dump(Data()) ?>
-</h3>
+<?= Button('Bar')->label('Baz')->onclick("alert('foo')") ?>
 
 <hr>
 
-<?= Button()->class('foo', 'bar')->id('baz') ?>
+<?php foreach (Data() as $item) echo "<h3>$item</h3>"; ?>
+
+<hr>
+
+<?= Button()->class('foo', 'bar')->id('bum')->id('baz')->type('submit') ?>
