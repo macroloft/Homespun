@@ -1,8 +1,8 @@
 <?php
 
-$attrs = ['class', 'id|prop', 'type|prop', 'onclick|prop'];
+$attrs = ['class', 'id|prop', 'type|prop', 'data', 'disabled|prop', 'onclick|prop'];
 
-$_prepare('class', 'btn', 'btn-default');
+$_prepare('class', 'btn', ($_prop('context') ? "btn-{$_prop('context')}" : 'btn-default'));
 $_prepare('type', 'button');
 
 $label = $_prop('label') ?? 'Default Label'; // isset ? $useProp : 'Set fallback'

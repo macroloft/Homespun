@@ -6,8 +6,6 @@ $foo = Button('Bar');
 
 ?>
 
-<pre style="background-color: #eee; padding: 20px;"><?= var_dump($foo) ?></pre>
-
 <?= $foo ?>
 
 <?= Button('Bar')->label('Baz')->onclick("alert('foo')") ?>
@@ -18,4 +16,8 @@ $foo = Button('Bar');
 
 <hr>
 
-<?= Button()->class('foo', 'bar')->id('bum')->id('baz')->type('submit') ?>
+<?php
+    $btn = Button()->class('foo', 'bar')->id('bum')->id('baz')->type('submit')->disabled(true)->data(['foo' => 'bar'], ['baz' => 'bang'])->context('primary');
+
+    echo $btn;
+?>
