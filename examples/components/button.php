@@ -1,12 +1,12 @@
 <?php
 
-$attrs = ['class', 'id|prop', 'type|prop', 'data', 'disabled|prop', 'onclick|prop'];
+$attrs = ['class', 'id|val', 'type|val', 'data', 'disabled|val', 'onclick|val'];
 $context = $_isset('context', 'btn-%s', 'btn-default');
 
 $_prepare('class', 'btn', $context);
 $_prepare('type', 'button');
 
-$label = $_prop('label') ?? 'Default Label'; // isset ? $useProp : 'Set fallback'
+$label = $_val('label') ?? 'Default Label'; // isset ? $useProp : 'Set fallback'
 
 ?>
 

@@ -93,12 +93,12 @@ class Homespun
             return $this->attr(...$names);
         };
 
-        $_prop = function ($name) {
-            return $this->prop($name);
+        $_val = function ($name) {
+            return $this->val($name);
         };
 
-        $_props = function ( $name = null ) {
-            return $this->props($name);
+        $_prop = function ( $name = null ) {
+            return $this->prop($name);
         };
 
         $_prepend = function ( $name, ...$payload ) {
@@ -110,6 +110,8 @@ class Homespun
         $_append = function ( $name, ...$payload ) {
             return $this->append($name, ...$payload);
         };
+
+        $_add = $_append; // alias
 
         $_isset = function (...$payload) {
             return $this->isset(...$payload);
@@ -124,7 +126,7 @@ class Homespun
     }
 
     // processes data-props and returns array of property => value pairs
-    protected function _propsToAttrArray ( $key, $values )
+    protected function _propToAttrArray ( $key, $values )
     {
         // definitive values do not come as array
         if ( !is_array($values) )
@@ -184,19 +186,19 @@ class Homespun
         foreach ( $names as $name ) {
             $_name = explode('|', $name);
 
-            // decide if definitive/single or multiple props
+            // decide if latest val or complete property array
             $key = $_name[0];
-            $mode = $_name[1] ?? 'props';
+            $mode = isset($_name[1]) && $_name[1] == 'val' ? 'val' : 'prop';
 
             if ( $value = $this->{$mode}($key) )
-                $attrArray = array_merge($attrArray, $this->_propsToAttrArray( $key, $value ));
+                $attrArray = array_merge($attrArray, $this->_propToAttrArray( $key, $value ));
         }
 
         return $this->_arrayToAttrs($attrArray);
     }
 
-    // returns latest value in data-key
-    function prop ( $name )
+    // returns latest value in data-property
+    function val ( $name )
     {
         if ( array_key_exists($name, $this->_data) )
             return array_values(array_slice($this->_data[$name], -1))[0];
@@ -204,8 +206,8 @@ class Homespun
             return null;
     }
 
-    // returns values of data-key or complete data
-    function props ( $name = null )
+    // returns data-property values or complete data-properties array
+    function prop ( $name = null )
     {
         if ( is_null($name) )
             return $this->_data;
@@ -215,7 +217,7 @@ class Homespun
             return null;
     }
 
-    // prepend to data-prop
+    // prepend to data-property
     function prepend ( $name, ...$payload )
     {
         if ( !empty($payload) )
@@ -225,10 +227,11 @@ class Homespun
             else
                 $this->_data[$name] = $payload;
         }
+
         return $this;
     }
 
-    // append to data-prop
+    // append to data-property
     function append ( $name, ...$payload )
     {
         if ( !empty($payload) )
@@ -242,10 +245,10 @@ class Homespun
         return $this;
     }
 
-    // check if prop isset, return true, false or custom string
+    // check if data-property exists, return true, false or custom string
     function isset ( $name, $true = null, $false = null )
     {
-        $value = $this->prop($name);
+        $value = $this->val($name);
 
         if ( $value && $true )
             return sprintf($true, $value);
