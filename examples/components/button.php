@@ -1,9 +1,17 @@
 <?php
-    $label = isset($label) ? $label : 'Foo';
 
-    var_dump($this);
+$attrs = ['class', 'id|prop', 'type|prop', 'data', 'disabled|prop', 'onclick|prop'];
+$context = $_isset('context', 'btn-%s', 'btn-default');
+
+$_prepare('class', 'btn', $context);
+$_prepare('type', 'button');
+
+$label = $_prop('label') ?? 'Default Label'; // isset ? $useProp : 'Set fallback'
+
 ?>
 
 <div style="margin-top: 20px; padding: 20px; background-color: #ddd;">
-    <button type="button" id="<?= $_id ?>"><?= $label ?></button>
+    <button <?= $_attr(...$attrs) ?>>
+        <?= $label ?>
+    </button>
 </div>
