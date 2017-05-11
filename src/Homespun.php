@@ -111,6 +111,10 @@ class Homespun
             return $this->append($name, ...$payload);
         };
 
+        $_isset = function (...$payload) {
+            return $this->isset(...$payload);
+        };
+
         if ( $this->_raw )
             return require $this->_path;
 
@@ -236,5 +240,20 @@ class Homespun
         }
 
         return $this;
+    }
+
+    // check if prop isset, return true, false or custom string
+    function isset ( $name, $true = null, $false = null )
+    {
+        $value = $this->prop($name);
+
+        if ( $value && $true )
+            return sprintf($true, $value);
+        else if ( $value )
+            return true;
+        else if ( $false )
+            return $false;
+        else
+            return false;
     }
 }
