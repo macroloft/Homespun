@@ -1,0 +1,18 @@
+{
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/macroloft/Homespun"
+        }
+    ],
+    "require": {
+        "twbs/bootstrap": "3.*",
+        "macroloft/Homespun": "master",
+        "components/jquery": "dev-master"
+    },
+    "config": {
+        "disable-tls": true,
+        "secure-http": false
+    },
+    "minimum-stability": "dev"
+}

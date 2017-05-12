@@ -1,23 +1,47 @@
 <?php
 
+require 'vendor/autoload.php';
 require 'components.php';
 
 $foo = Button('Bar');
+$btn = Button()->class('foo', 'bar')->id('bum')->id('baz')->type('submit')->disabled(true)->data(['foo' => 'bar'], ['baz' => 'bang'])->context('primary');
 
 ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Homespun Example Page</title>
+        <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+    </head>
+    <body>
 
-<?= $foo ?>
+        <div class="container">
 
-<?= Button('Bar')->label('Baz')->onclick("alert('foo')") ?>
+            <?= PageHeader('Homespun')
+                ->sub('Extend recurring HTML snippets to reusable components') ?>
 
-<hr>
+            <?= Panel('For example some cool buttons')
+                ->context('primary')
+                ->body(
+                    $foo
+                    . Button('Bar')->label('Baz')->onclick("alert('foo')")
+                    . $btn
+                    . Button('Danger')->context('danger')
+                )
+                ->footer('&hellip;in a panel!')
+            ?>
 
-<?php foreach (Data() as $item) echo "<h3>$item</h3>"; ?>
+            <?= Tabs(Db('tabs')) ?>
 
-<hr>
+            <?= ListGroup(Db('data')) ?>
 
-<?php
-    $btn = Button()->class('foo', 'bar')->id('bum')->id('baz')->type('submit')->disabled(true)->data(['foo' => 'bar'], ['baz' => 'bang'])->context('primary');
+            <?= ListGroup(['Direct', 'Input']) ?>
+        </div>
 
-    echo $btn;
-?>
+        <script src="vendor/components/jquery/jquery.min.js"></script>
+        <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    </body>
+</html>
+
