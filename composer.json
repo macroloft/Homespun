@@ -1,5 +1,5 @@
 {
-    "name": "macroloft/Homespun",
+    "name": "macroloft/homespun",
     "description": "Simple PHP templating for HTML snippets and components",
     "type": "library",
     "keywords": [
